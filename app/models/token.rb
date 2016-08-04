@@ -10,11 +10,16 @@ class Token < ActiveRecord::Base
     rescue
       retry
     end
-    
+
     session_token
   end
 
+  def self.delete_token!(token)
+    token = Token.find_by(token: token)
+    token.destroy if token
+  end
+
   def self.generate_session_token
-    SecureRandom::urlsafe_base64(32)
+    SecureRandom.urlsafe_base64(32)
   end
 end

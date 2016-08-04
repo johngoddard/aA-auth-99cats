@@ -16,8 +16,7 @@ class ApplicationController < ActionController::Base
   end
 
   def logout!
-    token = Token.find_by(token: session[:session_token])
-    token.destroy if token
+    Token.delete_token!(session[:session_token])
     session[:session_token] = nil
   end
 
